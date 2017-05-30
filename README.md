@@ -2,7 +2,9 @@
 
 A set of custom functions to query and scrap data from musicbrainz.org server
 
-#Dependencies
+
+
+# Dependencies
 
 Directly install dependencies from the terminal
 
@@ -10,4 +12,4 @@ Directly install dependencies from the terminal
 
 
 
-#Usage
+# Usage
