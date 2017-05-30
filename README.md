@@ -25,7 +25,7 @@ Install required python dependencies from requirements.txt file.
 
 1. Provide your login credentials of musicbrainz database in the script [mb_queries.py](https://github.com/albincorreya/musicbrainz_queries/blob/master/mb_queries.py) (line 20, 26 ).
 
-2. 
+2. A simple example below. For more details read the documentation.
   ```
   from mb_queries import *
   
