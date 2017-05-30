@@ -23,11 +23,29 @@ Install required python dependencies from requirements.txt file.
 
 ## Usage
 
-1. Provide your login credentials of musicbrainz database in the script [mb_queries.py](https://github.com/albincorreya/musicbrainz_queries/blob/master/mb_queries.py) (line 20, 26 )
+1. Provide your login credentials of musicbrainz database in the script [mb_queries.py](https://github.com/albincorreya/musicbrainz_queries/blob/master/mb_queries.py) (line 20, 26 ).
 
-
-
-
+2. 
+  ```
+  from mb_queries import *
+  
+  # getting 100 rows of artist uids from the database
+  artists = get_limited_artists("100")
+  
+  #For table containing credited entities to an artist. In this case "recording, release_group, and work".
+  generate_table(artists)
+  #check your working directory for the CSV files
+  
+  #For sepearate CSV files
+  generate_multi_tables(artists)
+  #check your working directory for the CSV files
+  
+  # For link tables
+  get_multi_artist_link_tables(artists)
+  #check your working directory for the CSV files
+  
+  
+  ```
 
 
 ## Contributing
