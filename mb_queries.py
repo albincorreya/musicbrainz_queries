@@ -14,42 +14,25 @@ reload(sys);
 sys.setdefaultencoding("utf8")
 
 
-# try:
-# 	#Connecting to the musicbrainz database using psycopg2
-# 	# provide your database login credentials here in the desired format. Refer to http://initd.org/psycopg/docs/module.html
-# 	conn = psycopg2.connect(dbname="<Your_DB_name>", user="<Your_user_name>", password="<Password>",host="<host_address>")
-# 	#Initiate the cursor
-# 	cur = conn.cursor()
-
-# 	#Connecting to the musicbrainz database using SQLAlchemy
-# 	#Provide your databse login credentials here in the desired format. 
-# 	engine = create_engine('<Your_login_credentials>') # refer to http://docs.sqlalchemy.org/en/latest/core/engines.html
-# 	Session = sessionmaker(bind=engine)
-# 	session = Session()
-
-# 	print "\n ---Succesfully connected to the musicbrainz database...---\n"
-
-# except:
-# 	raise ValueError('\n--Unable to connect to the database.., please check your database login credentials...--')
-
-
 try:
 	#Connecting to the musicbrainz database using psycopg2
 	# provide your database login credentials here in the desired format. Refer to http://initd.org/psycopg/docs/module.html
-	conn = psycopg2.connect(dbname="musicbrainz", user="musicbrainzro", password="m29n4XyNz/zD8ui/ToPDTGZBdl4l9JwJGAfVETamC3k=",host="localhost")
+	conn = psycopg2.connect(dbname="<Your_DB_name>", user="<Your_user_name>", password="<Password>",host="<host_address>")
 	#Initiate the cursor
 	cur = conn.cursor()
 
 	#Connecting to the musicbrainz database using SQLAlchemy
-	#Provide your databse login credentials here in the desired format. Refer to http://docs.sqlalchemy.org/en/latest/core/engines.html
-	engine = create_engine('postgresql://musicbrainzro:m29n4XyNz/zD8ui/ToPDTGZBdl4l9JwJGAfVETamC3k=@localhost/musicbrainz') #echo=True for logging
+	#Provide your databse login credentials here in the desired format. 
+	engine = create_engine('<Your_login_credentials>') # refer to http://docs.sqlalchemy.org/en/latest/core/engines.html
 	Session = sessionmaker(bind=engine)
 	session = Session()
 
-	print "Succesfully connected to the musicbrainz database...\n"
+	print "\n ---Succesfully connected to the musicbrainz database...---\n"
 
 except:
-	raise ValueError('Unable to connect to the database.., please check your database login credentials...')
+	raise ValueError('\n--Unable to connect to the database.., please check your database login credentials...--')
+
+
 
 def get_all_artists():
 	"""
