@@ -1,13 +1,5 @@
 
-
-# from sqlalchemy import create_engine
-# from sqlalchemy.orm import sessionmaker
 import mbdata.models as models
-
-
-# engine = create_engine('postgresql://musicbrainzro:m29n4XyNz/zD8ui/ToPDTGZBdl4l9JwJGAfVETamC3k=@asplab-db.s.upf.edu/musicbrainz', echo=True)
-# Session = sessionmaker(bind=engine)
-# session = Session()
 
 
 
