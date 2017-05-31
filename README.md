@@ -30,20 +30,22 @@ Install required python dependencies from requirements.txt file.
   from mb_queries import *
   
   # getting 100 rows of artist uids from the database
-  artists = get_limited_artists("100")
+  artists = get_all_artists(limit=100) # by default get all the artist rows from the database if no limits specified
+  
+  
+  #check your working directory for the CSV files
   
   #For table containing credited entities to an artist. In this case "recording, release_group, and work".
-  generate_table(artists)
-  #check your working directory for the CSV files
+  generate_table(artists)  
   
   #For sepearate CSV files
   generate_multi_tables(artists)
-  #check your working directory for the CSV files
+  
   
   # For link tables
   get_multi_artist_link_tables(artists)
-  #check your working directory for the CSV files
-  
+
+
   
   ```
 
