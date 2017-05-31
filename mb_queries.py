@@ -639,6 +639,7 @@ https://musicbrainz.org/doc/MusicBrainz_Database/Schema#Relationship_table_struc
 # ______________________________________________
 
 
+
 def get_link_types(link_id):
 	"""
 	Function to retreive uid and name from the "link_type" table in musicbrainz database by "link" table ids.
@@ -693,7 +694,7 @@ def get_artistLinkTables(artistid,table_name,entity1_name):
 	cur.execute(sql_string+"%s)",(artistid,))
 	output = cur.fetchall()
 
-	if output is not None:
+	if len(output)!=0:
 		for row in output:
 			links.append(str(row[0]))
 			entity1.append(str(row[1]))
@@ -756,11 +757,11 @@ def get_entityGid(table_id,table_name):
 
 
 
-def save_link_csv(t,entity1,filename):
+def save_link_csv(t,entity0,entity1,filename):
 	"""
 
 	"""
-	d = {"artist.gid":t[0],"l_"+entity1:t[1],"link_id":t[2],"link_name":t[3]} # edit the key names of dictionary inorder to optimise this function to be used for saving other entity relations
+	d = {entity0+".gid":t[0],"l_"+entity1+".gid":t[1],"link_id":t[2],"link_name":t[3]} # edit the key names of dictionary inorder to optimise this function to be used for saving other entity relations
 	df = pd.DataFrame(d)
 	# optional - you can save the pandas dataframe (df) in different formats such as .json, pickle etc.
 	df.to_csv(filename+".csv",index=False)
@@ -768,7 +769,7 @@ def save_link_csv(t,entity1,filename):
 
 
 
-def get_multi_artist_link_tables(artists):
+def get_multi_artist_links(artists):
 	"""
 	Info :
 
@@ -802,10 +803,67 @@ def get_multi_artist_link_tables(artists):
 				d = (entity0_list,entity1_list,link_type_id,link_type_name)
 
 				# save to csv
-				save_link_csv(d,key[1]+".gid",key[0])
+				save_link_csv(d,"artist",key[1],key[0])
 
 				print key[0],"--Table saved"
 	return
 
+
+def get_entity_links(entity0_uid,entity0_name,entity1_name,link_table_name):
+	"""
+
+	Info : Function to retieve all the link and link_type tables associated with a artist entity
+			We are targeted to query the combinations of following tables to get the links between entities and their
+			respective link_type fields.
+			"artist, recording, release_groups, work"
+
+			PS: If you want get relations with other entities like "label, area" etc,
+			you have to optimise the sql string and if conditions in the get_entityGid() function.
+
+	Input :
+			entity0_uid : a string containing musicbrainz entity0 uid
+
+			entity0_name : a string containing title of entity0 table. eg. 'artist'
+
+			entity1_name : a string conataining the name of entity1 which is linked to the l_<entity0>_<entity1 table>
+							eg. In "l_artist_recording" table, entity0_name is "artist" and entity1_name is "recording" 
+
+			link_table_name : link table name. ie. l_artist_<entity1> . eg. "l_artist_recording"
+
+	Output : A tuple containing a list of following values
+
+			entity0_list : A list of musicbrainz uids. 
+			entity1_list : A list of musicbrainz uids for the entity1 related to entity0.
+			link_type_uid : A list of "link_type" table uid fields which defines the relations between entity0 and entity1
+			link_type_name : A list of "link_type" table name fields which defines the realtion between entity0 and entity1
+
+	"""
+	links = list()
+	entity1 = list()
+	sql_string = "select link,entity1 from "+link_table_name+" l where l.entity0 in (select id from "+entity0_name+" where gid="
+	cur.execute(sql_string+"%s)",(entity0_uid,))
+	output = cur.fetchall()
+
+	if len(output)!=0:
+		for row in output:
+			links.append(str(row[0]))
+			entity1.append(str(row[1]))
+		#return links, entity1
+
+		entity0_list = list()
+		entity1_list = list()
+		link_type_id = list()
+		link_type_name = list()
+		for i in zip(links,entity1):
+			link_type = get_link_types(i[0])
+			entity0_list.append(entity0_uid)
+			#print "\n Entity1 -->", i[1],"Links ->>",i[0],"\n"
+			entity1_list.append(get_entityGid(i[1],entity1_name)) #
+			link_type_id.append(link_type[0])
+			link_type_name.append(link_type[1])
+		return entity0_list, entity1_list, link_type_id, link_type_name
+	else:
+		return None
+	return
 
 
