@@ -34,7 +34,7 @@ except:
 
 
 
-def get_all_artists():
+def get_all_artists(limit=None):
 	"""
 	Info :   Function to retrieve all the musicbrainz uuid's from the artist table in the database
 	Input :  None
@@ -43,8 +43,10 @@ def get_all_artists():
 	"""
 	artistuid_list = list()
 	#id_list = list() optional if need artist table id list
-	cur.execute("select * from artist")
-	#cur.execute("select * from artist")
+	if limit is None:
+		cur.execute("select * from artist")
+	else:
+		cur.execute("select * from artist limit %s",(limit,))
 	output = cur.fetchall()
 	for row in output:
 		redir = load_artist(session,row[1]) # checks if the artist uid has a redirect uid in the database(aritst.gid.redirect)
@@ -55,7 +57,7 @@ def get_all_artists():
 
 
 
-def get_all_artists_area_table():
+def get_all_artists_area_table(limit=None):
 	"""
 	Info : Function to retrieve and save all the artist uids, names and area field from the musicbrainz database
 
@@ -69,7 +71,10 @@ def get_all_artists_area_table():
 	artists = list()
 	fieldnames = ['artist.gid','artist.name','artist.area']
 	filename = 'artist.csv'
-	cur.execute("select artist.gid,artist.name,artist.area from artist")
+	if limit is None:
+		cur.execute("select artist.gid,artist.name,artist.area from artist")
+	else:
+		cur.execute("select artist.gid,artist.name,artist.area from artist limit %s",(limit,))
 	output = cur.fetchall()
 	# saving to csv file
 	with open(filename,'wb') as csvfile:
@@ -81,31 +86,6 @@ def get_all_artists_area_table():
 			artists.append(redir_id.gid)
 	print "\n Query completed for",len(artists),"\tartists\n"
 	return artists
-
-
-
-def get_limited_artists(nums):
-	"""
-	Info :   Function to retrieve limited musicbrainz uuid's from the artist table in the database
-	
-	Input :  
-			nums : A string of numbers specifying number of artist rows required. eg get_limited_artist("10")
-
-	Output : A list of strings containing musicbrainz artist uuids for the requested numbers
-
-	"""
-	artistid_list = list()
-	id_list = list()
-	cur.execute("select * from artist limit %s",(nums,))
-	#cur.execute("select * from artist")
-	output = cur.fetchall()
-	for row in output:
-		redir = load_artist(session,row[1]) # checks if the artist uid has a redirect uid in the database(aritst.gid.redirect)
-		artistid_list.append(redir.gid)
-		id_list.append(row[0])
-	print "\n Query completed for",len(artistid_list),"artists\n"
-	return artistid_list
-
 
 
 
