@@ -28,7 +28,7 @@ Install required python dependencies from requirements.txt file.
 
 1. A simple example below. For more details read the documentation.
 
-  ```ipython
+  ```python
   from mb_queries import *
   
   # getting 100 rows of artist uids from the database
