@@ -26,13 +26,12 @@ Install required python dependencies from requirements.txt file.
 ## Usage
 
 
-2. A simple example below. For more details read the documentation.
+1. A simple example below. For more details read the documentation.
   ```python
   from mb_queries import *
   
   # getting 100 rows of artist uids from the database
   artists = get_all_artists(limit=100) # by default get all the artist rows from the database if no limits specified
-  
   
   #check your working directory for the CSV files
   
@@ -41,12 +40,9 @@ Install required python dependencies from requirements.txt file.
   
   #For sepearate CSV files
   generate_multi_tables(artists)
-  
-  
+   
   # For link tables
   get_multi_artist_link_tables(artists)
-
-
   
   ```
 
