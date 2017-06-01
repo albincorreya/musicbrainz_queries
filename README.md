@@ -1,14 +1,13 @@
 # musicbrainz_queries
 
 
-A set of custom functions to query and scrap data from musicbrainz.org server. The results are formatted as rows in order to save it as CSV.
+A set of custom functions to query and scrap data from musicbrainz.org server. The results are formatted as rows in order to save it as a pandas dataframe or a CSV file.
 
+[here](https://musicbrainz.org/relationships)
 
-https://musicbrainz.org/relationships
+[schema](https://wiki.musicbrainz.org/-/images/5/52/ngs.png)
 
-https://wiki.musicbrainz.org/-/images/5/52/ngs.png
-
-https://musicbrainz.org/doc/MusicBrainz_Database/Schema#Relationship_table_structure
+link table schema [here](https://musicbrainz.org/doc/MusicBrainz_Database/Schema#Relationship_table_structure)
 
 
 
@@ -20,13 +19,15 @@ Install required python dependencies from requirements.txt file.
 
     $ pip install -r requirements.txt
 
-
-## Usage
+## Setup
 
 1. Provide your login credentials of musicbrainz database in the script [mb_queries.py](https://github.com/albincorreya/musicbrainz_queries/blob/master/mb_queries.py) (line 20, 26 ).
 
+## Usage
+
+
 2. A simple example below. For more details read the documentation.
-  ```
+  ```python
   from mb_queries import *
   
   # getting 100 rows of artist uids from the database
