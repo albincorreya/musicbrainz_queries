@@ -30,7 +30,7 @@ Install required python dependencies from requirements.txt file.
 
   ```python
   from mb_queries import *
-  
+ 
   # getting 100 rows of artist uids from the database
   artists = get_all_artists(limit=100) # by default get all the artist rows from the database if no limits specified
   
@@ -45,7 +45,7 @@ Install required python dependencies from requirements.txt file.
   # For link tables
   get_multi_artist_link_tables(artists)
   
-  ```
+  ```python
 
 
 ## Contributing
