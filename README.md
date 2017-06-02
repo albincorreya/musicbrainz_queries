@@ -45,7 +45,7 @@ Install required python dependencies from requirements.txt file.
   # For link tables
   get_multi_artist_link_tables(artists)
   
-  ```python
+  ```
 
 
 ## Contributing
