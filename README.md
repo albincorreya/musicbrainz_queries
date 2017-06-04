@@ -1,7 +1,7 @@
 # musicbrainz_queries
 
 
-A set of custom functions to query and scrap data from musicbrainz.org server. These functions facilitate easy scrapping of different entity and their link tables. The results are formatted as rows, in order to save it as a pandas dataframe or as a CSV file for further analysis.
+A set of custom functions to query and scrap data from musicbrainz.org server. These functions facilitate easy scrapping of different entities,link tables and their relationships in the database. The results are formatted as rows, in order to save it as a pandas dataframe or as a CSV file for further analysis.
 
 
 Find musicbrainz database [schema](https://wiki.musicbrainz.org/-/images/5/52/ngs.png) here. 
