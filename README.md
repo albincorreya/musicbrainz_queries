@@ -1,13 +1,14 @@
 # musicbrainz_queries
 
 
-A set of custom functions to query and scrap data from musicbrainz.org server. The results are formatted as rows in order to save it as a pandas dataframe or a CSV file.
+A set of custom functions to query and scrap data from musicbrainz.org server. The results are formatted as rows, in order to save it as a pandas dataframe or as a CSV file for further analysis.
 
-[here](https://musicbrainz.org/relationships)
 
-[schema](https://wiki.musicbrainz.org/-/images/5/52/ngs.png)
+Find musicbrainz database [schema](https://wiki.musicbrainz.org/-/images/5/52/ngs.png) here. 
 
-link table schema [here](https://musicbrainz.org/doc/MusicBrainz_Database/Schema#Relationship_table_structure)
+Refer [here](https://musicbrainz.org/relationships) for documentation about existing entity relations in musicbrainz database.
+
+For understanding entity link tables, have a look at [link table's schema](https://musicbrainz.org/doc/MusicBrainz_Database/Schema#Relationship_table_structure) of musicbrainz database.
 
 
 ## Contents
