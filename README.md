@@ -10,8 +10,15 @@ A set of custom functions to query and scrap data from musicbrainz.org server. T
 link table schema [here](https://musicbrainz.org/doc/MusicBrainz_Database/Schema#Relationship_table_structure)
 
 
+## Contents
 
+[mb_queries.py](https://github.com/albincorreya/musicbrainz_queries/blob/master/mb_queries.py) - A set of functions for querying different tables in musicbrainz database.
 
+[mb_redir.py](https://github.com/albincorreya/musicbrainz_queries/blob/master/mb_redir.py) - A set of functions to check if an redirect uid exists for a respective entity uid.
+
+[mb_recgroup](https://github.com/albincorreya/musicbrainz_queries/blob/master/mb_recgroup.py) - A set of functions to generate unique identifiers (uid) for recordings with similar title and links using string matching algorithms. We call this new entity as recording group.
+
+[my_utils.py](https://github.com/albincorreya/musicbrainz_queries/blob/master/my_utils.py) - A set of utility functions to process lists, tuples and csv files.
 
 ## Dependencies
 
