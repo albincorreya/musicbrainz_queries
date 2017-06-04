@@ -12,7 +12,7 @@ link table schema [here](https://musicbrainz.org/doc/MusicBrainz_Database/Schema
 
 ## Contents
 
-[mb_queries.py](https://github.com/albincorreya/musicbrainz_queries/blob/master/mb_queries.py) - A set of functions for querying different tables in musicbrainz database.
+[mb_queries.py](https://github.com/albincorreya/musicbrainz_queries/blob/master/mb_queries.py) - A set of functions for querying different tables in musicbrainz database for particular use cases.
 
 [mb_redir.py](https://github.com/albincorreya/musicbrainz_queries/blob/master/mb_redir.py) - A set of functions to check if an redirect uid exists for a respective entity uid.
 
@@ -30,10 +30,14 @@ Install required python dependencies from requirements.txt file.
 
 Provide your login credentials of musicbrainz database in the script [mb_queries.py](https://github.com/albincorreya/musicbrainz_queries/blob/master/mb_queries.py) (line 20, 26 ).
 
+Refer to [sqlalchemy](http://initd.org/psycopg/docs/module.html) and [psycopg2](http://docs.sqlalchemy.org/en/latest/core/engines.html) documentations for more details.
+
+If you don't have access to musicbrainz database server. Set up your own server from [here](https://musicbrainz.org/doc/MusicBrainz_Server).
+
 ## Usage
 
 
-Find a simple use case below. For more details, have a look at the examples and documentation. (on process)
+Find a simple use case below. For more details, have a look at the interactive ipython notebook [examples](github.com).
 
   ```python
   from mb_queries import *
@@ -53,6 +57,8 @@ Find a simple use case below. For more details, have a look at the examples and 
   get_multi_artist_link_tables(artists)
   
   ```
+
+## Acknowledgements
 
 
 ## Contributing
