@@ -31,7 +31,7 @@ Install required python dependencies from requirements.txt file.
 
 Provide your login credentials of musicbrainz database in the script [mb_queries.py](https://github.com/albincorreya/musicbrainz_queries/blob/master/mb_queries.py) (line 20, 26 ).
 
-Refer to [sqlalchemy](http://initd.org/psycopg/docs/module.html) and [psycopg2](http://docs.sqlalchemy.org/en/latest/core/engines.html) documentations for more details.
+Refer to [sqlalchemy](http://docs.sqlalchemy.org/en/latest/core/engines.html) and [psycopg2](http://initd.org/psycopg/docs/module.html) documentations for more details.
 
 If you don't have access to musicbrainz database server. Set up your own server from [here](https://musicbrainz.org/doc/MusicBrainz_Server).
 
