@@ -38,7 +38,7 @@ If you don't have access to musicbrainz database server. Set up your own server 
 ## Usage
 
 
-Find a simple use case below. For more details, have a look at the interactive ipython notebook [examples](github.com).
+Find a simple use case below. For more details, have a look at the interactive ipython notebook [examples](https://github.com/albincorreya/musicbrainz_queries/tree/master/examples).
 
   ```python
   from mb_queries import *
