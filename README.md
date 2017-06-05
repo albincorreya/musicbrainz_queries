@@ -69,7 +69,7 @@ Find a simple use case below. For more details, have a look at the interactive i
   
   
   # get entity0-entity1 relations
-  # In this artist-recording links from the l_artist_recording table
+  # In this case, artist-recording links from the l_artist_recording table
   
   artist_uid, l_rec_uid, link_type_uid, link_type_name = get_entity_links(artists[0],'artist','recording')
   
