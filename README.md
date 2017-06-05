@@ -80,7 +80,9 @@ Find a simple use case below. For more details, have a look at the interactive i
 
 ## Acknowledgements
 
-Thanks to Alastair Porter and Sergio Oramus.
+This project was partially funded by [Maria de Maeztu Strategic Research Program](https://www.upf.edu/web/mdm-dtic) of DTIC, UPF, Barcelona.
+
+Thanks to [Alastair Porter](http://www.dtic.upf.edu/~aporter/) and [Sergio Oramas](http://sergiooramas.com/).
 
 
 ## Contributing
