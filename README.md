@@ -17,7 +17,7 @@ For understanding entity link tables, have a look at [link table's schema](https
 
 [mb_redir.py](https://github.com/albincorreya/musicbrainz_queries/blob/master/mb_redir.py) - A set of functions to check if an redirect uid exists for a respective entity uid.
 
-[mb_recgroup](https://github.com/albincorreya/musicbrainz_queries/blob/master/mb_recgroup.py) - A set of functions to generate unique identifiers (uid) for recordings with similar title and links using string matching algorithms. We call this new entity as recording group.
+[mb_recgroup](https://github.com/albincorreya/musicbrainz_queries/blob/master/mb_recgroup.py) - A set of functions to generate unique identifiers (uid) for recordings with similar title and links using string matching algorithms. We call this new entity as recording group. Find more details about recording group entity [here](https://github.com/albincorreya/musicbrainz_queries/wiki).
 
 [my_utils.py](https://github.com/albincorreya/musicbrainz_queries/blob/master/my_utils.py) - A set of utility functions to process lists, tuples and csv files.
 
