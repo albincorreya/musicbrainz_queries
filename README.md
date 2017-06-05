@@ -80,7 +80,7 @@ Find a simple use case below. For more details, have a look at the interactive i
 
 ## Acknowledgements
 
-Thanks to Alastair Porter ans Sergio Oramus.
+Thanks to Alastair Porter and Sergio Oramus.
 
 
 ## Contributing
