@@ -44,12 +44,12 @@ Find a simple use case below. For more details, have a look at the interactive i
   from mb_queries import *
  
   # getting 100 rows of artist uids from the database
-  artists = get_all_artists(limit=100) # by default get all the artist rows from the database if no limits specified
+  artists = get_all_artists(limit=100) # by default, it get all the artist rows from the database if no limits specified.
   
 
    rec_uid, rec_names, rec_ids = get_all_recordings_by_artist(artists[0])
    
-   rgroup_uid, rgroup_names = get_all_releasegroups_by_artist(artist[0])
+   rgroup_uid, rgroup_names = get_all_releasegroups_by_artist(artists[0])
    
    rgroup = get_releasegroups_from_recordings(rec_uid[0])
    
