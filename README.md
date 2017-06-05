@@ -46,7 +46,17 @@ Find a simple use case below. For more details, have a look at the interactive i
   # getting 100 rows of artist uids from the database
   artists = get_all_artists(limit=100) # by default get all the artist rows from the database if no limits specified
   
-  #check your working directory for the CSV files
+
+   rec_uid, rec_names, rec_ids = get_all_recordings_by_artist(artists[0])
+   
+   rgroup_uid, rgroup_names = get_all_releasegroups_by_artist(artist[0])
+   
+   rgroup = get_releasegroups_from_recordings(rec_uid[0])
+   
+   work = get_work_from_recordings(rec_ids[0])
+  
+  
+  # some automated functions to scrap data for a list of artist uids and save it to an CSV file
   
   #For table containing credited entities to an artist. In this case "recording, release_group, and work".
   generate_table(artists)  
@@ -57,9 +67,20 @@ Find a simple use case below. For more details, have a look at the interactive i
   # For link tables
   get_multi_artist_link_tables(artists)
   
+  
+  # get entity0-entity1 relations
+  # In this artist-recording links from the l_artist_recording table
+  
+  artist_uid, l_rec_uid, link_type_uid, link_type_name = get_entity_links(artists[0],'artist','recording')
+  
+  
+  #check the ipython notebooks in the examples folder for more examples.
+  
   ```
 
 ## Acknowledgements
+
+Thanks to Alastair Porter ans Sergio Oramus.
 
 
 ## Contributing
