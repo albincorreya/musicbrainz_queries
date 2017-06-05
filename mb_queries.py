@@ -1,43 +1,64 @@
 
 # import neccessary packages and libraries
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
 from mbid_redir import *
 from mb_recgroup import *
 from my_utils import *
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 import mbdata.models as models
 import pandas as pd
-import psycopg2, csv
+import psycopg2
 # to encode non ascii characters to csv without any decode errors we set "utf8" encoding as default encoding.
 import sys;
 reload(sys);
 sys.setdefaultencoding("utf8")
 
 
+# try:
+# 	#Connecting to the musicbrainz database using psycopg2
+# 	# provide your database login credentials here in the desired format. Refer to http://initd.org/psycopg/docs/module.html
+# 	conn = psycopg2.connect(dbname="<Your_DB_name>", user="<Your_user_name>", password="<Password>",host="<host_address>")
+# 	#Initiate the cursor
+# 	cur = conn.cursor()
+
+# 	#Connecting to the musicbrainz database using SQLAlchemy
+# 	#Provide your database login credentials here in the desired format. 
+# 	engine = create_engine('<Your_login_credentials>') # refer to http://docs.sqlalchemy.org/en/latest/core/engines.html
+# 	Session = sessionmaker(bind=engine)
+# 	session = Session()
+
+# 	print "\n ---Succesfully connected to the musicbrainz database...---\n"
+
+# except:
+# 	raise ValueError('\n--Unable to connect to the database.., please check your database login credentials...--')
+
+
 try:
 	#Connecting to the musicbrainz database using psycopg2
 	# provide your database login credentials here in the desired format. Refer to http://initd.org/psycopg/docs/module.html
-	conn = psycopg2.connect(dbname="<Your_DB_name>", user="<Your_user_name>", password="<Password>",host="<host_address>")
+	conn = psycopg2.connect(dbname="musicbrainz", user="musicbrainzro", password="m29n4XyNz/zD8ui/ToPDTGZBdl4l9JwJGAfVETamC3k=",host="localhost")
 	#Initiate the cursor
 	cur = conn.cursor()
 
 	#Connecting to the musicbrainz database using SQLAlchemy
-	#Provide your databse login credentials here in the desired format. 
-	engine = create_engine('<Your_login_credentials>') # refer to http://docs.sqlalchemy.org/en/latest/core/engines.html
+	#Provide your databse login credentials here in the desired format. Refer to http://docs.sqlalchemy.org/en/latest/core/engines.html
+	engine = create_engine('postgresql://musicbrainzro:m29n4XyNz/zD8ui/ToPDTGZBdl4l9JwJGAfVETamC3k=@localhost/musicbrainz') #echo=True for logging
 	Session = sessionmaker(bind=engine)
 	session = Session()
 
-	print "\n ---Succesfully connected to the musicbrainz database...---\n"
+	print "Succesfully connected to the musicbrainz database...\n"
 
 except:
-	raise ValueError('\n--Unable to connect to the database.., please check your database login credentials...--')
+	raise ValueError('Unable to connect to the database.., please check your database login credentials...')
 
 
 
 def get_all_artists(limit=None):
 	"""
 	Info :   Function to retrieve all the musicbrainz uuid's from the artist table in the database
-	Input :  None
+	Input :  
+			limit : Query specified number of artist rows from database. (By default limit value is NONE)
+
 	Output : A list of strings containing musicbrainz artist uuids
 
 	"""
@@ -61,7 +82,8 @@ def get_all_artists_area_table(limit=None):
 	"""
 	Info : Function to retrieve and save all the artist uids, names and area field from the musicbrainz database
 
-	Input : None
+	Input : 
+			limit : Query specified number of artist rows from database. (By default limit value is NONE)
 
 	Return : A CSV file named artist.csv will be saved in your working directory with the respective fields
 
@@ -86,46 +108,6 @@ def get_all_artists_area_table(limit=None):
 			artists.append(redir_id.gid)
 	print "\n Query completed for",len(artists),"\tartists\n"
 	return artists
-
-
-
-#-------------------------------------------------------------
-
-# these are some utility functions to read the extracted CSV files and parse required fields for further queries..
-
-def get_artists_from_csv(filename):
-	"""
-	Info :  Function to retrieve all the artist musicbrainz uuid's from the csv file we had scrapped.
-			The uuid's should be in the column with fieldname "artist.gid". You can optimise this function 
-			for any column with differernt fieldnames.
-
-	Input :  Filename of the CSV file. 
-
-	Output : A list of strings containing musicbrainz artist uuids
-
-	"""
-	with open(filename) as csvfile:
-		reader = csv.DictReader(csvfile)
-		artists = list()
-		for row in reader:
-			artists.append(row['artist.gid'])
-		remove_duplicate_listitems(artists)
-	return artists
-
-def get_unique_rows_from_csv(filename,field):
-	with open(filename) as csvfile:
-		reader = csv.DictReader(csvfile)
-		ids = list()
-		i = 0
-		test = list()
-		row_len = get_row_length(filename)
-		for row in reader:
-			test.append(row[field])
-	ids = remove_duplicate(test)
-	return ids
-
-#-------------------------------------------------------------
-
 
 
 
@@ -390,6 +372,10 @@ def artist_rgroup_table(artist_id):
 	return artists,rgroupids,rgroupnames
 
 
+def view_artist_rgroups(table):
+	d = {"artist.gid":table,"release_group.gid":table[1],"release_group.name":table[2]}
+	df = pd.DataFrame(d)
+	return df
 
 def artist_recordings_work_rgroup_table(artist_id):
 	"""
@@ -619,7 +605,6 @@ https://musicbrainz.org/doc/MusicBrainz_Database/Schema#Relationship_table_struc
 # ______________________________________________
 
 
-
 def get_link_types(link_id):
 	"""
 	Function to retreive uid and name from the "link_type" table in musicbrainz database by "link" table ids.
@@ -729,13 +714,24 @@ def get_entityGid(table_id,table_name):
 			redir = load_releaseGroup(session,gid[0])
 			return redir.gid
 		if table_name=='work':
-			# print "WORK",gid[0]
-			# redir = load_work(session,gid[0]) #need to fix it, cannot query work redirect table from database ?
-			return gid[0]
+			redir = load_work(session,gid[0]) 
+			return redir.gid
 	return
 
 
+def view_links(table,entity0_name,entity1_name):
+	"""
+	Info : Function to return a pandas dataframe corresponding to entity0,entity1 link-type.gid and link_type.name
 
+	Inputs :
+			table : a tuple of list (output of get_entity_links() function)
+
+	Outputs : A pandas dataframe corresponding to entity0,entity1 link-type.gid and link_type.name
+
+	"""
+	d = {entity0_name+".gid":table[0],"l_"+entity1_name+".gid":table[1],"link_type.gid":table[2],"link_type_name":table[3]}
+	df = pd.DataFrame(d)
+	return df
 
 def save_link_csv(t,entity0,entity1,filename):
 	"""
@@ -789,10 +785,10 @@ def get_multi_artist_links(artists):
 	return
 
 
-def get_entity_links(entity0_uid,entity0_name,entity1_name,link_table_name):
+def get_entity_links(entity0_uid,entity0_name,entity1_name):
 	"""
 
-	Info : Function to retieve all the link and link_type tables associated with a artist entity
+	Info : Function to retieve all the link and link_type tables associated with a particular musicbrainz entity
 			We are targeted to query the combinations of following tables to get the links between entities and their
 			respective link_type fields.
 			"artist, recording, release_groups, work"
@@ -820,6 +816,7 @@ def get_entity_links(entity0_uid,entity0_name,entity1_name,link_table_name):
 	"""
 	links = list()
 	entity1 = list()
+	link_table_name = "l_"+entity0_name+"_"+entity1_name
 	sql_string = "select link,entity1 from "+link_table_name+" l where l.entity0 in (select id from "+entity0_name+" where gid="
 	cur.execute(sql_string+"%s)",(entity0_uid,))
 	output = cur.fetchall()
@@ -845,5 +842,8 @@ def get_entity_links(entity0_uid,entity0_name,entity1_name,link_table_name):
 	else:
 		return None
 	return
+
+
+
 
 

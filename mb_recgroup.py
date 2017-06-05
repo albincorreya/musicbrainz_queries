@@ -92,3 +92,24 @@ def generate_recording_group(match_list,recording_list):
 
 
 
+def get_recording_group(recordings_list,str_match_threshold):
+	"""
+	Info : Generate recording groups for a list of recordings
+
+	Inputs:
+			recordings_list : A list of string containing recording titles of all recordings associated 
+							with a artist
+
+			str_match_threshold : String matching threshold value for the string matching algorithm. 
+								Any value between 0 - 100. After some trial and error, 88 found out to be a optimal
+								value to str_match_threshold for generating best string matches from recordings.
+
+	Output : A list of string containing newly generated recording group uids
+	"""
+	match_list = string_match_recordings(recordings_list,str_match_threshold)
+	rec_groups = generate_recording_group(match_list,recordings_list)
+	return rec_groups
+
+
+
+

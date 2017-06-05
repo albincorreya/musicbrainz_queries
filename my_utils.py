@@ -2,12 +2,10 @@
 
 import sys, csv
 
-
-
 #_____________________________________
 
 """
-Some utility functions to process lists
+Some utility functions to process lists and tuples
 
 """
 
@@ -31,16 +29,6 @@ def remove_duplicate_listitems(mylist):
 #for unhashable objects
 def remove_duplicate(alist):
     return list(set(alist))
-
-
-def dup_items_list(testList):
-    testListDict = {}
-    for item in testList:
-      try:
-        testListDict[item] += 1
-      except:
-        testListDict[item] = 1
-    return testListDict
 
 
 def remove_duplicates_tupleList(tupleList):
@@ -104,6 +92,43 @@ def get_release_groups(artistid,filename):
 Some utility functions for handling CSV files
 
 """
+
+# these are some utility functions to read the extracted CSV files and parse required fields for further queries..
+
+def get_artists_from_csv(filename):
+    """
+    Info :  Function to retrieve all the artist musicbrainz uuid's from the csv file we had scrapped.
+            The uuid's should be in the column with fieldname "artist.gid". You can optimise this function 
+            for any column with differernt fieldnames.
+
+    Input :  Filename of the CSV file. 
+
+    Output : A list of strings containing musicbrainz artist uuids
+
+    """
+    with open(filename) as csvfile:
+        reader = csv.DictReader(csvfile)
+        artists = list()
+        for row in reader:
+            artists.append(row['artist.gid'])
+        remove_duplicate_listitems(artists)
+    return artists
+
+
+def get_unique_rows_from_csv(filename,field):
+    with open(filename) as csvfile:
+        reader = csv.DictReader(csvfile)
+        ids = list()
+        i = 0
+        test = list()
+        row_len = get_row_length(filename)
+        for row in reader:
+            test.append(row[field])
+    ids = remove_duplicate_listitems(test)
+    return ids
+
+
+
 def get_recording_ids_from_csv(rgroupid,filename):
     rec_list = list()
     recids = list()
