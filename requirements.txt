@@ -1,7 +1,7 @@
 SQLAlchemy==1.1.9
 argparse==1.2.1
 fuzzywuzzy==0.15.0
-mbdata==2017.01.18
+mbdata==2017.6.2
 numpy==1.12.1
 pandas==0.19.2
 psycopg2==2.7.1
